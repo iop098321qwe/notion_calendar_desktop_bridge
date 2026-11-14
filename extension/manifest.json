@@ -1,10 +1,13 @@
 {
   "manifest_version": 3,
   "name": "Notion Calendar → Desktop",
-  "version": "1.2.0",
+  "version": "0.0.1",
   "description": "Open Notion task links from Notion Calendar in Notion Desktop.",
   "minimum_chrome_version": "111",
-  "permissions": ["webNavigation", "storage"],
+  "permissions": [
+    "webNavigation",
+    "storage"
+  ],
   "host_permissions": [
     "https://calendar.notion.so/*",
     "https://calendar.notion.com/*",
@@ -12,11 +15,19 @@
     "https://www.notion.so/*",
     "https://notion.so/*"
   ],
-  "background": { "service_worker": "background.mjs", "type": "module" },
+  "background": {
+    "service_worker": "background.mjs",
+    "type": "module"
+  },
   "content_scripts": [
     {
-      "matches": ["https://calendar.notion.com/*", "https://calendar.notion.so/*"],
-      "js": ["direct.js"],
+      "matches": [
+        "https://calendar.notion.com/*",
+        "https://calendar.notion.so/*"
+      ],
+      "js": [
+        "direct.js"
+      ],
       "run_at": "document_start",
       "world": "MAIN"
     }
