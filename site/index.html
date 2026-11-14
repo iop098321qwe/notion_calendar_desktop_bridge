@@ -22,7 +22,7 @@
     
     
       
-        <title>Notion_calendar_desktop_bridge - Notion Calendar-Desktop Bridge</title>
+        <title>Notion Calendar → Desktop - Notion Calendar-Desktop Bridge</title>
       
     
     
@@ -112,7 +112,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Notion_calendar_desktop_bridge
+              Notion Calendar → Desktop
             
           </span>
         </div>
@@ -282,6 +282,11 @@
                       
                     
                     
+                      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+                      <div class="md-sidebar-button__wrapper">
+                        <label class="md-sidebar-button" for="__toc"></label>
+                      </div>
+                    
                   
                   <div class="md-sidebar__inner">
                     
@@ -293,6 +298,69 @@
   
     
   
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#install" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Install
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-it-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        How it works
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Tests
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#update-and-troubleshoot" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Update and troubleshoot
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#repository-maintenance" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Repository maintenance
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
   
 </nav>
                   </div>
@@ -317,8 +385,59 @@
                   
 
 
-<h1 id="notion_calendar_desktop_bridge">Notion_calendar_desktop_bridge<a class="headerlink" href="#notion_calendar_desktop_bridge" title="Permanent link">&para;</a></h1>
-<p>bridge to open notion calendar items in notino desktop</p>
+<h1 id="notion-calendar-desktop">Notion Calendar → Desktop<a class="headerlink" href="#notion-calendar-desktop" title="Permanent link">&para;</a></h1>
+<p>Open Notion task links from Notion Calendar in Notion Desktop rather than
+opening another browser tab. Both <code>calendar.notion.com</code> and
+<code>calendar.notion.so</code> are supported.</p>
+<h2 id="install">Install<a class="headerlink" href="#install" title="Permanent link">&para;</a></h2>
+<p>Requires a Chromium-based browser supporting MAIN-world content scripts
+(Chromium 111 or newer), plus Notion Desktop registered for <code>notion://</code> URLs.</p>
+<ol>
+<li>Open <code>brave://extensions</code> (or <code>chrome://extensions</code>).</li>
+<li>Enable <strong>Developer mode</strong> and choose <strong>Load unpacked</strong>.</li>
+<li>Select this checkout's <code>extension/</code> directory.</li>
+<li>Reload Notion Calendar and click a linked Notion task.</li>
+<li>Approve the browser's external-application prompt when requested.</li>
+</ol>
+<p>To check the desktop protocol handler on Linux:</p>
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>xdg-mime<span class="w"> </span>query<span class="w"> </span>default<span class="w"> </span>x-scheme-handler/notion
+</span></code></pre></div>
+<h2 id="how-it-works">How it works<a class="headerlink" href="#how-it-works" title="Permanent link">&para;</a></h2>
+<ul>
+<li><code>extension/direct.js</code> intercepts Calendar task clicks at document start,
+  during the original user gesture, and hands off in the existing tab.</li>
+<li><code>extension/links.mjs</code> validates supported HTTPS Notion task URLs and
+  converts their page IDs into desktop URLs.</li>
+<li><code>extension/background.mjs</code> handles otherwise unhandled Calendar navigations.</li>
+<li><code>extension/launch.html</code> and <code>launch.mjs</code> provide desktop-launch and explicit
+  web-fallback links when the direct route cannot be used.</li>
+</ul>
+<p>The worker remembers source tab IDs in session storage across suspension,
+not task URLs. Independently opened Notion tabs are left unchanged.
+The extension uses only the scoped Notion hosts declared in its manifest.</p>
+<h2 id="tests">Tests<a class="headerlink" href="#tests" title="Permanent link">&para;</a></h2>
+<p>Requires Node.js with the built-in test runner; no npm dependencies are
+needed to execute the tests.</p>
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>npm<span class="w"> </span><span class="nb">test</span>
+</span></code></pre></div>
+<p>The suite covers URL validation, direct handoff, user activation, converter
+parity, source-tab scoping, navigation races, worker restart, and fallback.
+Browser APIs are mocked; authenticated Calendar behavior and desktop protocol
+prompts still need a manual browser check.</p>
+<h2 id="update-and-troubleshoot">Update and troubleshoot<a class="headerlink" href="#update-and-troubleshoot" title="Permanent link">&para;</a></h2>
+<p>After changing files, use the extension's <strong>Reload</strong> button and reload
+Calendar. Unpacked extensions do not update automatically from GitHub.
+If handoff is blocked, use the launch page's desktop button and check the
+OS protocol handler. Remove the extension in browser settings to uninstall.</p>
+<h2 id="repository-maintenance">Repository maintenance<a class="headerlink" href="#repository-maintenance" title="Permanent link">&para;</a></h2>
+<p>This repository maintains the extension previously stored in Chezmoi at
+<code>dot_local/share/notion-calendar-desktop-bridge</code>. The manifest version is
+unchanged; releases are cut manually.</p>
+<p>Chezmoi's existing deployment copies and browser loading helper are retained
+until a separate deployment cutover. They still target
+<code>~/.local/share/notion-calendar-desktop-bridge</code>. Loading this checkout instead
+may change its unpacked extension ID; disable the old copy to avoid duplicate
+handlers.</p>
 
 
 

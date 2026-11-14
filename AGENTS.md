@@ -26,37 +26,54 @@ or release automation.
 - Run `git status --short --branch` before editing to confirm repo
   state.
 - Run `git diff --stat` before committing to review the change scope.
-- Verification needed: add authoritative setup, run, or build
-  commands when this repository defines them.
+- Load `extension/` unpacked in a Chromium 111+ browser.
+- Run `npm test` for the Node test suite.
 
 ## Environment
 
 - Git is required for day-to-day work in this repository.
-- Verification needed: document runtime versions, package managers,
-  and env vars when they exist.
+- Node.js with `node:test` is required for tests.
+- A registered `notion://` desktop handler is required for live handoff.
+- No required environment variables are defined.
 
 ## Repository Overview
 
-- Root files hold the initial project overview, license, and repo
-  policies.
-- Verification needed: add top-level directories here when the repo
-  grows.
+- `extension/` holds the browser extension.
+- `tests/` holds isolated Node browser simulations.
+- `docs/` links root documentation; `site/` is generated docs output.
+- Root files hold repository tooling and documentation.
 
 ## Tracked Files Overview
 
-- `AGENTS.md`: AI coding agent instructions for this repository.
-- `done.txt`: Root completed task list placeholder for bootstrap workflows.
-- `inbox.txt.tuxedo-lock`: Blank Tuxedo inbox lock file created alongside todo.txt.
-- `LICENSE`: Project license text.
-- `README.md`: Primary repository overview and setup notes.
-- `todo.txt`: Root task list placeholder for bootstrap workflows.
+- `.github/workflows/docs.yml`: Zensical Pages build and deployment.
+- `.gitignore`: local dependency and cache exclusions.
+- `.husky/commit-msg`: commitlint hook.
+- `AGENTS.md`: repository instructions.
+- `LICENSE`: repository license.
+- `README.md`: installation and maintenance guide.
+- `commitlint.config.cjs`: Conventional Commit validation.
+- `docs/AGENTS.md`, `docs/README.md`: root documentation symlinks.
+- `done.txt`: bootstrap completed-task placeholder.
+- `extension/background.mjs`: fallback navigation worker.
+- `extension/direct.js`: user-gesture desktop handoff.
+- `extension/launch.html`: desktop and web fallback page.
+- `extension/launch.mjs`: launch-page behavior.
+- `extension/links.mjs`: validated URL conversion.
+- `extension/manifest.json`: MV3 permissions and entry points.
+- `inbox.txt.tuxedo-lock`: bootstrap inbox lock placeholder.
+- `package-lock.json`: npm dependency lock.
+- `package.json`: metadata, test command, and commitlint dependencies.
+- `site/`: generated documentation; contents omitted from per-file listing.
+- `tests/notion-calendar-desktop-bridge.cjs`: mocked browser regression suite.
+- `todo.txt`: user-only task file; agents must not touch it.
+- `zensical.toml`: documentation site configuration.
 
 ## Architecture
 
-- This repository starts from a minimal scaffold and may not define
-  subsystems yet.
-- Verification needed: describe components, boundaries, and data flow
-  after they are introduced.
+- A MAIN-world handler intercepts Calendar clicks during user activation.
+- The worker backs up direct handoff with a launch page and web fallback.
+- Keep `direct.js` and `links.mjs` URL conversion behavior aligned.
+- Session storage retains source tab IDs, not task URLs.
 
 ## Commands
 
@@ -64,23 +81,25 @@ or release automation.
   state.
 - `git diff --stat`: review the size and spread of pending changes.
 - `git log --oneline --decorate -5`: inspect recent commit history.
-- Verification needed: document authoritative build, run, lint, and
-  task commands when the repository defines them.
+- `npm test`: run isolated regression tests.
+- `zensical build --clean`: build documentation when installed.
 
 ## Testing
 
-- Verification needed: add test commands and expectations when tests
-  exist.
+- `npm test` covers URL validation, activation, races, and fallback.
+- Confirm live Calendar and desktop protocol prompts manually.
 - Do not claim coverage, test gates, or suites that are not verified.
 
 ## Linting and Formatting
 
-- Verification needed: add formatter and linter commands after they
-  are introduced.
+- Commitlint validates messages through the Husky commit hook.
+- No source formatter is configured.
 - Keep changes minimal and consistent with the existing code style.
 
 ## CI and Release
 
+- `.github/workflows/docs.yml` builds Zensical on `main` and `master`.
+- Releases are manual; release-note filters are not defined here.
 - Use Conventional Commits for every commit. Prefer a scope when it
   adds clarity.
 - Never create, edit, or update `CHANGELOG.md` manually.
@@ -91,6 +110,11 @@ or release automation.
 ## Conventions
 
 - Use small, correct changes that fit the existing project structure.
+- Agents must never read, create, edit, delete, move, stage, commit, or
+  otherwise touch `todo.txt`; only the user may modify it manually.
+- Prefer amending small related corrections into the relevant unshared
+  current-branch commit instead of separate fixup or cleanup commits.
+- Use standalone, changelog-ready Conventional Commit headers.
 - Verify behavior from the actual codebase before documenting or
   changing it.
 - Keep `AGENTS.md` as instructions, not as a changelog, diary, or work
@@ -106,10 +130,9 @@ or release automation.
 
 ## Dependencies and Services
 
-- Verification needed: document external services, databases, queues,
-  or storage when they are added.
-- Avoid assuming any third-party service exists until the repo proves
-  it.
+- Notion Calendar and Notion Desktop provide the live integration.
+- No background service, server, or database is installed.
+- Releases are manual; do not change versions as part of migration.
 
 ## Troubleshooting
 
