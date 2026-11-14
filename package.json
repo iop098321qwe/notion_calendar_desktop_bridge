@@ -1,6 +1,6 @@
 {
   "name": "notion_calendar_desktop_bridge",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "bridge to open notion calendar items in notino desktop",
   "main": "index.js",
   "scripts": {
@@ -12,11 +12,16 @@
     "url": "git+https://github.com/iop098321qwe/notion_calendar_desktop_bridge.git"
   },
   "commit-and-tag-version": {
-    "packageFiles": ["package.json"],
+    "packageFiles": [
+      "package.json"
+    ],
     "bumpFiles": [
       "package.json",
       "package-lock.json",
-      { "filename": "extension/manifest.json", "type": "json" }
+      {
+        "filename": "extension/manifest.json",
+        "type": "json"
+      }
     ]
   },
   "keywords": [],
