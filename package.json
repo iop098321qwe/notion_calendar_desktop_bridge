@@ -4,7 +4,7 @@
   "description": "bridge to open notion calendar items in notino desktop",
   "main": "index.js",
   "scripts": {
-    "test": "node --test tests/notion-calendar-desktop-bridge.cjs",
+    "test": "node --test tests/notion-calendar-desktop-bridge.cjs && python3 -m unittest discover -s tests -p 'test_*.py'",
     "prepare": "husky"
   },
   "repository": {
