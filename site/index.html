@@ -419,11 +419,9 @@ documentation, and tests. The installer copies only the extension into
 registered to open <code>notion://</code> links. No administrator privileges are needed.</p>
 <h2 id="install">Install<a class="headerlink" href="#install" title="Permanent link">&para;</a></h2>
 <p>Run once in a terminal:</p>
-<div class="language-sh highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>~/Documents/github_repositories
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nb">cd</span><span class="w"> </span>~/Documents/github_repositories
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>git<span class="w"> </span>clone<span class="w"> </span>--branch<span class="w"> </span>main<span class="w"> </span>https://github.com/iop098321qwe/notion_calendar_desktop_bridge.git
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="nb">cd</span><span class="w"> </span>notion_calendar_desktop_bridge
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>python3<span class="w"> </span>install.py
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>git<span class="w"> </span>clone<span class="w"> </span>--branch<span class="w"> </span>main<span class="w"> </span>https://github.com/iop098321qwe/notion_calendar_desktop_bridge.git
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nb">cd</span><span class="w"> </span>notion_calendar_desktop_bridge
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>python3<span class="w"> </span>install.py
 </span></code></pre></div>
 <ol>
 <li>Open <code>brave://extensions</code> (or <code>chrome://extensions</code>).</li>
@@ -437,10 +435,9 @@ registered to open <code>notion://</code> links. No administrator privileges are
 </span></code></pre></div>
 <h2 id="update">Update<a class="headerlink" href="#update" title="Permanent link">&para;</a></h2>
 <p>Run from your existing checkout:</p>
-<div class="language-sh highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nb">cd</span><span class="w"> </span>~/Documents/github_repositories/notion_calendar_desktop_bridge
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>git<span class="w"> </span>switch<span class="w"> </span>main
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>git<span class="w"> </span>pull<span class="w"> </span>--ff-only<span class="w"> </span>origin<span class="w"> </span>main
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>python3<span class="w"> </span>install.py
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>git<span class="w"> </span>switch<span class="w"> </span>main
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>git<span class="w"> </span>pull<span class="w"> </span>--ff-only<span class="w"> </span>origin<span class="w"> </span>main
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>python3<span class="w"> </span>install.py
 </span></code></pre></div>
 <p>Click <strong>Reload</strong> on the extension's browser settings card, then reload
 Calendar. If Brave Origin loads it through launch flags, fully exit all
