@@ -33,6 +33,7 @@ or release automation.
 
 - Git is required for day-to-day work in this repository.
 - Node.js with `node:test` is required for tests.
+- Python 3 is required for installation and installer tests.
 - A registered `notion://` desktop handler is required for live handoff.
 - No required environment variables are defined.
 
@@ -61,10 +62,12 @@ or release automation.
 - `extension/links.mjs`: validated URL conversion.
 - `extension/manifest.json`: MV3 permissions and entry points.
 - `inbox.txt.tuxedo-lock`: bootstrap inbox lock placeholder.
+- `install.py`: copies extension files to the stable XDG data path.
 - `package-lock.json`: npm dependency lock.
 - `package.json`: metadata, test command, and commitlint dependencies.
 - `site/`: generated documentation; contents omitted from per-file listing.
 - `tests/notion-calendar-desktop-bridge.cjs`: mocked browser regression suite.
+- `tests/test_install.py`: isolated installation and update checks.
 - `todo.txt`: user-only task file; agents must not touch it.
 - `zensical.toml`: documentation site configuration.
 

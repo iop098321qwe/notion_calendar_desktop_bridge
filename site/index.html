@@ -390,17 +390,30 @@
 opening another browser tab. Both <code>calendar.notion.com</code> and
 <code>calendar.notion.so</code> are supported.</p>
 <h2 id="install">Install<a class="headerlink" href="#install" title="Permanent link">&para;</a></h2>
+<p>Install Git and Python 3 first, then clone from GitHub:</p>
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>~/Documents/github_repositories
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nb">cd</span><span class="w"> </span>~/Documents/github_repositories
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/iop098321qwe/notion_calendar_desktop_bridge.git
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="nb">cd</span><span class="w"> </span>notion_calendar_desktop_bridge
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>git<span class="w"> </span>switch<span class="w"> </span>develop
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>python3<span class="w"> </span>install.py
+</span></code></pre></div>
+<p>Until a release is cut, use <code>develop</code>, where the extension source lives.
+Private repository access requires GitHub authentication.
+The installer copies files to <code>~/.local/share/notion-calendar-desktop-bridge</code>;
+<code>XDG_DATA_HOME</code> overrides the data directory. Keep the checkout separate from
+that installation directory. No administrator privileges are needed.</p>
 <p>Requires a Chromium-based browser supporting MAIN-world content scripts
 (Chromium 111 or newer), plus Notion Desktop registered for <code>notion://</code> URLs.</p>
 <ol>
 <li>Open <code>brave://extensions</code> (or <code>chrome://extensions</code>).</li>
 <li>Enable <strong>Developer mode</strong> and choose <strong>Load unpacked</strong>.</li>
-<li>Select this checkout's <code>extension/</code> directory.</li>
+<li>Select the installed directory printed by <code>python3 install.py</code>.</li>
 <li>Reload Notion Calendar and click a linked Notion task.</li>
 <li>Approve the browser's external-application prompt when requested.</li>
 </ol>
 <p>To check the desktop protocol handler on Linux:</p>
-<div class="language-sh highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>xdg-mime<span class="w"> </span>query<span class="w"> </span>default<span class="w"> </span>x-scheme-handler/notion
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>xdg-mime<span class="w"> </span>query<span class="w"> </span>default<span class="w"> </span>x-scheme-handler/notion
 </span></code></pre></div>
 <h2 id="how-it-works">How it works<a class="headerlink" href="#how-it-works" title="Permanent link">&para;</a></h2>
 <ul>
@@ -416,28 +429,36 @@ opening another browser tab. Both <code>calendar.notion.com</code> and
 not task URLs. Independently opened Notion tabs are left unchanged.
 The extension uses only the scoped Notion hosts declared in its manifest.</p>
 <h2 id="tests">Tests<a class="headerlink" href="#tests" title="Permanent link">&para;</a></h2>
-<p>Requires Node.js with the built-in test runner; no npm dependencies are
-needed to execute the tests.</p>
-<div class="language-sh highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>npm<span class="w"> </span><span class="nb">test</span>
+<p>Requires Node.js with the built-in test runner and Python 3; no npm
+dependencies are needed to execute the tests.</p>
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>npm<span class="w"> </span><span class="nb">test</span>
 </span></code></pre></div>
 <p>The suite covers URL validation, direct handoff, user activation, converter
 parity, source-tab scoping, navigation races, worker restart, and fallback.
 Browser APIs are mocked; authenticated Calendar behavior and desktop protocol
 prompts still need a manual browser check.</p>
 <h2 id="update-and-troubleshoot">Update and troubleshoot<a class="headerlink" href="#update-and-troubleshoot" title="Permanent link">&para;</a></h2>
-<p>After changing files, use the extension's <strong>Reload</strong> button and reload
-Calendar. Unpacked extensions do not update automatically from GitHub.
+<p>Run these commands from your GitHub checkout:</p>
+<div class="language-sh highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nb">cd</span><span class="w"> </span>~/Documents/github_repositories/notion_calendar_desktop_bridge
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>git<span class="w"> </span>switch<span class="w"> </span>develop
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>git<span class="w"> </span>pull<span class="w"> </span>--ff-only<span class="w"> </span>origin<span class="w"> </span>develop
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>python3<span class="w"> </span>install.py
+</span></code></pre></div>
+<p>Then open <code>brave://extensions</code> (or <code>chrome://extensions</code>), click <strong>Reload</strong>
+on <strong>Notion Calendar → Desktop</strong>, approve any requested permissions, and
+reload Calendar. If Brave Origin loads it through launch flags, fully exit
+all Brave Origin windows, including web apps, and reopen instead.
+Unpacked extensions do not update automatically from GitHub.
 If handoff is blocked, use the launch page's desktop button and check the
 OS protocol handler. Remove the extension in browser settings to uninstall.</p>
 <h2 id="repository-maintenance">Repository maintenance<a class="headerlink" href="#repository-maintenance" title="Permanent link">&para;</a></h2>
 <p>This repository maintains the extension previously stored in Chezmoi at
 <code>dot_local/share/notion-calendar-desktop-bridge</code>. The manifest version is
 unchanged; releases are cut manually.</p>
-<p>Chezmoi's existing deployment copies and browser loading helper are retained
-until a separate deployment cutover. They still target
-<code>~/.local/share/notion-calendar-desktop-bridge</code>. Loading this checkout instead
-may change its unpacked extension ID; disable the old copy to avoid duplicate
-handlers.</p>
+<p>Chezmoi no longer installs or updates this extension. The repository installer
+retains the old installed path, so existing browser loading flags still work.
+Do not load the checkout's <code>extension/</code> directory as a second copy: its
+unpacked extension ID may differ. Existing installs only need the update steps.</p>
 
 
 
